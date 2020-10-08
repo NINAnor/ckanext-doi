@@ -112,7 +112,11 @@ class DOIPlugin(SingletonPlugin, toolkit.DefaultDatasetForm):
                 # Load the current version
                 orig_metadata_dict = build_metadata(orig_pkg_dict, doi)
                 # Check if the two dictionaries are the same
-                if cmp(orig_metadata_dict, metadata_dict) != 0:
+
+		## TODO: This is a temporary fix: update of DOI metadata was not working with
+		# this comparison. The orig_metadata_dict contains in our case already updated content.
+		# Probably a best solution requires some interaction with the ckanext-doi developers.
+                if True: #cmp(orig_metadata_dict, metadata_dict) != 0:
                     # Not the same, so we want to update the metadata
                     update_doi(package_id, **metadata_dict)
                     toolkit.h.flash_success(u'DataCite DOI metadata updated')
